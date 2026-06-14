@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Europa — El gimnasio más completo de Manuel Coronado. 15 años formando disciplina.">
+<title>EUROPA | El Gimnasio más completo de Coronado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,700;0,900;1,400&family=Manrope:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0f0c1a;--surface:#1a1628;--text:#F5F5F5;--gold:#C8A86B;--gold-dim:rgba(200,168,107,0.15);--gray:#b0aac0;--border:rgba(200,168,107,0.25);--font-display:'Bodoni Moda',Georgia,serif;--font-body:'Manrope',system-ui,sans-serif;--font-mono:'Space Mono',monospace}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);overflow-x:hidden;cursor:auto}
+body.loading{overflow:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;font-family:inherit;border:none;background:none}
+#splash{position:fixed;inset:0;background:var(--bg);z-index:99990;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;animation:splashAutoHide 2.2s forwards}
+@keyframes splashAutoHide{0%,80%{opacity:1;pointer-events:all}100%{opacity:0;pointer-events:none}}
+#splash.hidden{display:none}
+.splash-name{font-family:var(--font-display);font-size:clamp(48px,12vw,120px);font-weight:700;letter-spacing:.08em;color:var(--text);line-height:1}
+.splash-years{font-family:var(--font-mono);font-size:clamp(11px,2vw,14px);letter-spacing:.4em;color:var(--gold);text-transform:uppercase}
+.splash-tag{font-family:var(--font-mono);font-size:clamp(9px,1.5vw,11px);letter-spacing:.3em;color:var(--gray);text-transform:uppercase}
+.splash-bar-wrap{width:min(300px,60vw);height:1px;background:rgba(200,168,107,.15);margin-top:24px;overflow:hidden}
+.splash-bar{height:100%;background:var(--gold);width:0%;animation:splashBar 1.6s ease-out forwards}
+@keyframes splashBar{to{width:100%}}
+#nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:20px 40px;display:flex;align-items:center;justify-content:space-between;transition:background .4s,padding .4s}
+#nav.scrolled{background:rgba(10,10,10,.92);backdrop-filter:blur(12px);padding:14px 40px;border-bottom:1px solid var(--border)}
+.nav-logo{font-family:var(--font-display);font-size:22px;font-weight:700;letter-spacing:.12em;color:var(--text)}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{font-family:var(--font-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gray);transition:color .2s}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--bg);background:var(--gold);padding:10px 20px;transition:background .2s;display:inline-block}
+.nav-cta:hover{background:#d4b47a}
+@media(max-width:900px){.nav-links,.nav-cta{display:none}}
+#hero{position:relative;min-height:100dvh;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:0 clamp(24px,6vw,80px);overflow:hidden}
+#hero-bg{position:absolute;inset:0;z-index:0;background:linear-gradient(135deg,#0f0c1a 0%,#1a0a2e 50%,#0a1a1a 100%)}
+.hero-bg-img{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=1400&q=80');background-size:cover;background-position:center top;opacity:.55;z-index:0}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(15,12,26,.92) 0%,rgba(15,12,26,.7) 50%,rgba(10,26,26,.5) 100%);z-index:1}
+.hero-content{position:relative;z-index:2;max-width:900px}
+.hero-kicker{font-family:var(--font-mono);font-size:clamp(9px,1.5vw,11px);letter-spacing:.3em;color:var(--gold);text-transform:uppercase;margin-bottom:24px;opacity:0;transform:translateY(20px);transition:opacity .8s,transform .8s}
+.hero-title{font-family:var(--font-display);font-size:clamp(60px,11vw,140px);font-weight:900;line-height:.92;letter-spacing:-.01em;color:var(--text);text-transform:uppercase;margin-bottom:16px;opacity:0;transform:translateY(30px);transition:opacity .9s .1s,transform .9s .1s}
+.hero-eslogan{font-family:var(--font-display);font-size:clamp(16px,3vw,32px);font-weight:400;font-style:italic;color:var(--gold);margin-bottom:12px;opacity:0;transform:translateY(20px);transition:opacity .8s .2s,transform .8s .2s}
+.hero-tagline{font-family:var(--font-body);font-size:clamp(13px,1.8vw,16px);color:var(--gray);letter-spacing:.05em;margin-bottom:48px;opacity:0;transform:translateY(20px);transition:opacity .8s .3s,transform .8s .3s}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;opacity:0;transform:translateY(20px);transition:opacity .8s .4s,transform .8s .4s}
+.btn-primary{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;background:var(--gold);color:var(--bg);padding:16px 32px;font-weight:700;transition:background .2s,transform .15s;display:inline-block}
+.btn-primary:hover{background:#d4b47a;transform:scale(.97)}
+.btn-secondary{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;border:1px solid rgba(200,168,107,.5);color:var(--text);padding:16px 32px;transition:border-color .2s,color .2s;display:inline-block}
+.btn-secondary:hover{border-color:var(--gold);color:var(--gold)}
+.hero-metrics{position:absolute;bottom:48px;left:clamp(24px,6vw,80px);right:clamp(24px,6vw,80px);display:flex;gap:48px;z-index:2;opacity:0;transition:opacity 1s .6s;flex-wrap:wrap}
+.metric{display:flex;flex-direction:column;gap:4px}
+.metric-num{font-family:var(--font-display);font-size:clamp(28px,5vw,48px);font-weight:900;color:var(--gold);line-height:1}
+.metric-label{font-family:var(--font-mono);font-size:9px;letter-spacing:.25em;color:var(--gray);text-transform:uppercase}
+.hero-visible .hero-kicker,.hero-visible .hero-title,.hero-visible .hero-eslogan,.hero-visible .hero-tagline,.hero-visible .hero-btns,.hero-visible .hero-metrics{opacity:1;transform:translateY(0)}
+.marquee-section{background:var(--gold);overflow:hidden;padding:14px 0;position:relative;z-index:2}
+.marquee-track{display:flex;gap:0;animation:marqueeScroll 28s linear infinite;white-space:nowrap}
+.marquee-track span{font-family:var(--font-mono);font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--bg);padding:0 32px;flex-shrink:0}
+@keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.section-num{font-family:var(--font-display);font-size:clamp(80px,18vw,200px);font-weight:900;color:rgba(200,168,107,.06);line-height:1;position:absolute;top:-20px;left:-10px;pointer-events:none;user-select:none}
+.section-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;margin-bottom:16px}
+.section-title{font-family:var(--font-display);font-size:clamp(32px,6vw,72px);font-weight:700;color:var(--text);line-height:1.05;margin-bottom:24px}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s,transform .9s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+#gym{padding:clamp(80px,12vw,160px) clamp(24px,6vw,80px);position:relative;overflow:hidden;background:var(--bg);background-image:url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1400&q=80');background-size:cover;background-position:center;background-attachment:fixed}
+#gym::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(15,12,26,.97) 0%,rgba(15,12,26,.88) 60%,rgba(10,26,26,.82) 100%);z-index:0}
+#gym>*{position:relative;z-index:1}
+.gym-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;max-width:1200px;margin:0 auto;align-items:start}
+.gym-lead{font-family:var(--font-body);font-size:clamp(16px,2vw,20px);color:var(--gray);line-height:1.7;margin-bottom:48px}
+.gym-blocks{display:flex;flex-direction:column;gap:0}
+.gym-block{display:flex;align-items:flex-start;gap:20px;padding:24px 0;border-bottom:1px solid var(--border)}
+.gym-block:first-child{border-top:1px solid var(--border)}
+.gym-block-num{font-family:var(--font-mono);font-size:10px;letter-spacing:.2em;color:var(--gold);min-width:28px;margin-top:4px}
+.gym-block-text{font-family:var(--font-body);font-size:clamp(14px,1.6vw,16px);color:var(--text);font-weight:500}
+.gym-visual{aspect-ratio:4/5;background-image:url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=600&q=80');background-size:cover;background-position:center;border-radius:8px;opacity:.9}
+@media(max-width:900px){.gym-grid{grid-template-columns:1fr;gap:48px}.gym-visual{display:none}}
+#disciplines{position:relative;background:var(--bg)}
+.disc-header{padding:clamp(60px,8vw,100px) clamp(24px,6vw,80px) 40px;position:relative;overflow:hidden}
+.disc-scroll-wrap{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-ms-overflow-style:none;cursor:grab}
+.disc-scroll-wrap::-webkit-scrollbar{display:none}
+.disc-scroll-wrap.grabbing{cursor:grabbing}
+.disc-track{display:flex;gap:2px;padding:0 clamp(24px,6vw,80px) 0;width:max-content}
+.disc-card{width:min(380px,80vw);height:clamp(500px,70vh,700px);background:var(--surface);border:1px solid var(--border);padding:40px 36px;display:flex;flex-direction:column;justify-content:space-between;flex-shrink:0;transition:border-color .3s;position:relative;overflow:hidden}
+.disc-card:hover{border-color:rgba(200,168,107,.5)}
+.disc-card-num{font-family:var(--font-mono);font-size:11px;letter-spacing:.25em;color:var(--gold)}
+.disc-card-name{font-family:var(--font-display);font-size:clamp(28px,4vw,42px);font-weight:700;color:var(--text);margin-bottom:6px;line-height:1}
+.disc-card-sub{font-family:var(--font-mono);font-size:10px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:16px}
+.disc-card-desc{font-family:var(--font-body);font-size:13px;color:var(--gray);line-height:1.6;margin-bottom:20px}
+.disc-card-benefits{display:flex;flex-wrap:wrap;gap:8px}
+.disc-benefit{font-family:var(--font-mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border:1px solid var(--border);padding:5px 10px}
+.disc-progress{padding:20px clamp(24px,6vw,80px);display:flex;align-items:center;gap:20px}
+.disc-progress-bar{flex:1;height:1px;background:var(--border);position:relative}
+.disc-progress-fill{position:absolute;left:0;top:0;height:100%;background:var(--gold);width:12.5%;transition:width .3s}
+.disc-progress-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;color:var(--gray);white-space:nowrap}
+.disc-arrows{display:flex;gap:8px}
+.disc-arrow{width:44px;height:44px;border:1px solid var(--border);background:transparent;color:var(--gold);font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,border-color .2s,transform .15s;flex-shrink:0;line-height:1}
+.disc-arrow:hover{background:var(--gold);color:var(--bg);border-color:var(--gold);transform:scale(.95)}
+.disc-arrow:disabled{opacity:.25;cursor:not-allowed;pointer-events:none}
+#facilities{padding:clamp(80px,12vw,160px) clamp(24px,6vw,80px);position:relative;overflow:hidden;background:var(--surface);background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=80');background-size:cover;background-position:center;background-attachment:fixed}
+#facilities::before{content:'';position:absolute;inset:0;background:linear-gradient(160deg,rgba(26,22,40,.96) 0%,rgba(20,10,30,.92) 100%);z-index:0}
+#facilities>*{position:relative;z-index:1}
+.fac-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:2px;margin-top:60px}
+.fac-item{background:var(--bg);border:1px solid var(--border);padding:32px 24px;display:flex;flex-direction:column;gap:12px;transition:background .3s,border-color .3s;position:relative;overflow:hidden}
+.fac-item::before{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gold);transition:width .4s}
+.fac-item:hover::before{width:100%}
+.fac-item:hover{background:rgba(200,168,107,.05);border-color:rgba(200,168,107,.4)}
+.fac-item-num{font-family:var(--font-mono);font-size:9px;letter-spacing:.2em;color:var(--gold)}
+.fac-item-name{font-family:var(--font-body);font-size:clamp(14px,1.8vw,16px);font-weight:600;color:var(--text);line-height:1.2}
+#schedule{padding:clamp(80px,12vw,160px) clamp(24px,6vw,80px);position:relative;overflow:hidden;background:var(--bg);background-image:url('https://images.unsplash.com/photo-1517836357047-ec9c6129dc9e?w=1400&q=80');background-size:cover;background-position:center;background-attachment:fixed}
+#schedule::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,5,20,.97) 0%,rgba(15,12,26,.93) 100%);z-index:0}
+#schedule>*{position:relative;z-index:1}
+.schedule-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:60px;max-width:1200px}
+.schedule-row{display:grid;grid-template-columns:140px 1fr auto;align-items:center;gap:16px;padding:18px 22px;background:var(--surface);border:1px solid var(--border);transition:border-color .3s}
+.schedule-row:hover{border-color:rgba(200,168,107,.4)}
+.schedule-disc{font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;color:var(--gold);text-transform:uppercase}
+.schedule-dias{font-family:var(--font-body);font-size:clamp(11px,1.3vw,13px);color:var(--gray);line-height:1.3}
+.schedule-hora{font-family:var(--font-display);font-size:clamp(16px,2vw,22px);font-weight:700;color:var(--text);text-align:right;white-space:nowrap}
+@media(max-width:900px){.schedule-grid{grid-template-columns:1fr}}
+#plans{padding:clamp(80px,12vw,160px) clamp(24px,6vw,80px);position:relative;overflow:hidden;background:var(--surface);background-image:url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=1400&q=80');background-size:cover;background-position:center;background-attachment:fixed}
+#plans::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,22,40,.97) 0%,rgba(20,10,35,.93) 100%);z-index:0}
+#plans>*{position:relative;z-index:1}
+.plans-note{font-family:var(--font-mono);font-size:10px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-top:12px;margin-bottom:60px;display:block}
+.plans-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:2px}
+.plan-card{background:var(--bg);border:1px solid var(--border);padding:36px 28px;display:flex;flex-direction:column;gap:16px;position:relative;transition:border-color .3s}
+.plan-card:hover{border-color:rgba(200,168,107,.4)}
+.plan-card.featured{background:var(--gold-dim);border-color:var(--gold)}
+.plan-badge{position:absolute;top:-1px;right:20px;background:var(--gold);color:var(--bg);font-family:var(--font-mono);font-size:8px;letter-spacing:.18em;text-transform:uppercase;padding:5px 10px;font-weight:700}
+.plan-name{font-family:var(--font-body);font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--gray)}
+.plan-price{font-family:var(--font-display);font-size:clamp(32px,5vw,48px);font-weight:900;color:var(--text);line-height:1}
+.plan-card.featured .plan-price{color:var(--gold)}
+.plan-period{font-family:var(--font-mono);font-size:9px;letter-spacing:.2em;color:var(--gray);text-transform:uppercase}
+.plan-cta{display:block;font-family:var(--font-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;text-align:center;padding:12px;border:1px solid rgba(200,168,107,.3);color:var(--gold);transition:background .2s,color .2s;margin-top:auto}
+.plan-cta:hover{background:var(--gold);color:var(--bg)}
+.plan-card.featured .plan-cta{background:var(--gold);color:var(--bg);border-color:var(--gold)}
+#freeclass{padding:clamp(80px,12vw,160px) clamp(24px,6vw,80px);position:relative;overflow:hidden;background:var(--bg);background-image:url('https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=1400&q=80');background-size:cover;background-position:center top;background-attachment:fixed}
+#freeclass::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,5,20,.97) 0%,rgba(20,15,35,.93) 100%);z-index:0}
+#freeclass>*{position:relative;z-index:1}
+.freeclass-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;max-width:1100px;margin:0 auto;align-items:start}
+.freeclass-pre{font-family:var(--font-mono);font-size:10px;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:20px}
+.freeclass-title{font-family:var(--font-display);font-size:clamp(36px,6vw,72px);font-weight:700;color:var(--text);line-height:1.05;margin-bottom:24px}
+.freeclass-sub{font-family:var(--font-body);font-size:15px;color:var(--gray);line-height:1.7;margin-bottom:36px}
+.form-wrap{display:flex;flex-direction:column;gap:2px}
+.form-row{display:grid;grid-template-columns:36px 1fr;align-items:stretch;background:var(--surface);border:1px solid var(--border);transition:border-color .3s}
+.form-row:focus-within{border-color:rgba(200,168,107,.6)}
+.form-row-num{display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:9px;color:var(--gold);border-right:1px solid var(--border);letter-spacing:.1em}
+.form-row input,.form-row select{background:transparent;border:none;outline:none;color:var(--text);font-family:var(--font-body);font-size:14px;padding:18px 16px;width:100%;-webkit-appearance:none}
+.form-row select option{background:var(--surface);color:var(--text)}
+.form-row input::placeholder{color:rgba(245,245,245,.3)}
+.form-submit{margin-top:4px;background:var(--gold);color:var(--bg);font-family:var(--font-mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;padding:18px;width:100%;transition:background .2s,transform .15s;border:none;cursor:pointer}
+.form-submit:hover{background:#d4b47a;transform:scale(.99)}
+@media(max-width:900px){.freeclass-grid{grid-template-columns:1fr;gap:48px}}
+#gallery{overflow:hidden;background:var(--surface);padding:clamp(60px,8vw,100px) 0;display:flex;flex-direction:column;gap:8px}
+.gallery-lane{overflow:hidden}
+.gallery-lane .marquee-track{gap:8px}
+.gallery-lane:nth-child(2) .marquee-track{animation-direction:reverse;animation-duration:35s}
+.gallery-lane:nth-child(3) .marquee-track{animation-duration:45s}
+.gallery-img{width:280px;height:200px;background-size:cover;background-position:center;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:9px;letter-spacing:.15em;color:rgba(200,168,107,.3);text-transform:uppercase;overflow:hidden;position:relative;border:1px solid var(--border)}
+#map-section{padding:clamp(80px,10vw,120px) clamp(24px,6vw,80px);position:relative;background:var(--bg);background-image:url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1400&q=80');background-size:cover;background-position:bottom;background-attachment:fixed}
+#map-section::before{content:'';position:absolute;inset:0;background:rgba(10,5,20,.95);z-index:0}
+#map-section>*{position:relative;z-index:1}
+.map-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;max-width:1200px;margin:0 auto;align-items:center}
+.map-embed{height:400px;background:var(--surface);border:1px solid var(--border);overflow:hidden}
+.map-embed iframe{width:100%;height:100%;filter:grayscale(1) invert(1) contrast(.8);border:none}
+.map-info{display:flex;flex-direction:column;gap:32px}
+.map-detail{display:flex;flex-direction:column;gap:6px}
+.map-detail-label{font-family:var(--font-mono);font-size:9px;letter-spacing:.25em;color:var(--gold);text-transform:uppercase}
+.map-detail-val{font-family:var(--font-body);font-size:clamp(14px,1.6vw,16px);color:var(--text);line-height:1.5}
+.map-wa{display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;font-family:var(--font-mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;padding:14px 24px;font-weight:700;transition:transform .15s}
+.map-wa:hover{transform:scale(.97)}
+@media(max-width:900px){.map-grid{grid-template-columns:1fr}.map-embed{height:300px}}
+#footer{background:var(--surface);border-top:1px solid var(--border);overflow:hidden}
+.footer-marquee{padding:24px 0;border-bottom:1px solid var(--border);overflow:hidden}
+.footer-marquee .marquee-track{animation-duration:18s}
+.footer-marquee .marquee-track span{font-family:var(--font-display);font-size:clamp(32px,7vw,72px);font-weight:900;color:rgba(200,168,107,.08);letter-spacing:.06em;padding:0 24px}
+.footer-body{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:40px;padding:60px clamp(24px,6vw,80px);max-width:1400px;margin:0 auto}
+.footer-col-title{font-family:var(--font-mono);font-size:9px;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;margin-bottom:16px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-col ul li a,.footer-col ul li{font-family:var(--font-body);font-size:13px;color:var(--gray);transition:color .2s;line-height:1.5}
+.footer-col ul li a:hover{color:var(--gold)}
+.footer-bottom{border-top:1px solid var(--border);padding:20px clamp(24px,6vw,80px);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.footer-copy{font-family:var(--font-mono);font-size:9px;letter-spacing:.15em;color:rgba(168,168,168,.5)}
+.footer-top-btn{font-family:var(--font-mono);font-size:9px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;background:none;border:1px solid var(--border);padding:8px 16px;transition:border-color .2s;cursor:pointer}
+.footer-top-btn:hover{border-color:var(--gold)}
+#float-cta{position:fixed;bottom:32px;right:32px;z-index:900;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+.float-btn{font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;padding:12px 20px;font-weight:700;transition:transform .15s;display:inline-block;white-space:nowrap;cursor:pointer}
+.float-btn:hover{transform:scale(.96)}
+.float-btn-wa{background:#25D366;color:#fff}
+.float-btn-clase{background:var(--gold);color:var(--bg)}
+@media(max-width:600px){#float-cta{bottom:16px;right:16px}.float-btn{font-size:9px;padding:10px 14px}}
+</style>
+</head>
+<body class="loading">
+<div id="splash" role="status"><div class="splash-name">EUROPA</div><div class="splash-years">15 AÑOS</div><div class="splash-tag">FORMANDO DISCIPLINA</div><div class="splash-bar-wrap"><div class="splash-bar"></div></div></div>
+<header id="nav"><a href="#" class="nav-logo">EUROPA</a><nav><ul class="nav-links"><li><a href="#gym">El Gimnasio</a></li><li><a href="#disciplines">Disciplinas</a></li><li><a href="#schedule">Horarios</a></li><li><a href="#plans">Planes</a></li></ul></nav><a href="#freeclass" class="nav-cta">PROBÁ GRATIS</a></header>
+<section id="hero"><div id="hero-bg"><div class="hero-bg-img"></div><div class="hero-overlay"></div></div><div class="hero-content"><p class="hero-kicker">MUSCULACIÓN · BOXEO · JIU JITSU · FUNCIONAL</p><h1 class="hero-title">EUROPA</h1><p class="hero-eslogan">Entrená por vos,<br>no por la excusa.</p><p class="hero-tagline">15 años formando disciplina en Coronado.</p><div class="hero-btns"><a href="#freeclass" class="btn-primary">PROBÁ UNA CLASE GRATIS</a><a href="#plans" class="btn-secondary">VER PLANES</a></div></div><div class="hero-metrics"><div class="metric"><span class="metric-num">15</span><span class="metric-label">Años</span></div><div class="metric"><span class="metric-num">8</span><span class="metric-label">Disciplinas</span></div><div class="metric"><span class="metric-num">PT</span><span class="metric-label">Personal Trainers</span></div><div class="metric"><span class="metric-num">★</span><span class="metric-label">Comunidad Activa</span></div></div></section>
+<div class="marquee-section" aria-hidden="true"><div class="marquee-track" id="marquee-main"></div></div>
+<section id="gym"><div class="gym-grid"><div><div class="section-num">01</div><p class="section-label reveal">El Gimnasio</p><h2 class="section-title reveal">Más que<br>un gimnasio.</h2><p class="gym-lead reveal">Europa lleva más de 15 años ayudando a personas reales a construir hábitos duraderos, fuerza física y confianza.</p><div class="gym-blocks" id="gym-blocks"></div></div><div class="gym-visual"></div></div></section>
+<section id="disciplines"><div class="disc-header"><div class="section-num">02</div><p class="section-label reveal">Disciplinas</p><h2 class="section-title reveal">8 formas de<br>superarte.</h2></div><div class="disc-scroll-wrap" id="disc-scroll"><div class="disc-track" id="disc-track"></div></div><div class="disc-progress"><div class="disc-arrows"><button class="disc-arrow" id="disc-prev" aria-label="Anterior" disabled>&#8592;</button><button class="disc-arrow" id="disc-next" aria-label="Siguiente">&#8594;</button></div><div class="disc-progress-bar"><div class="disc-progress-fill" id="disc-fill"></div></div><span class="disc-progress-label" id="disc-label">01 / 08</span></div><div style="background:var(--surface);padding:60px clamp(24px,6vw,80px)"><div class="marquee-track" id="disc-marquee-track"></div></div></section>
+<section id="facilities"><div style="position:relative;overflow:hidden"><div class="section-num">03</div><p class="section-label reveal">Instalaciones</p><h2 class="section-title reveal">Todo lo que<br>necesitás.</h2></div><div class="fac-grid" id="fac-grid"></div></section>
+<section id="schedule"><div style="position:relative;overflow:hidden"><div class="section-num">04</div><p class="section-label reveal">Horarios</p><h2 class="section-title reveal">Tu momento.<br>Tu disciplina.</h2></div><div class="schedule-grid" id="schedule-grid"></div></section>
+<section id="plans"><div style="position:relative;overflow:hidden"><div class="section-num">05</div><p class="section-label reveal">Planes</p><h2 class="section-title reveal">Elegí el plan<br>que te mueve.</h2><span class="plans-note reveal">Precios actualizados · Consultá disponibilidad</span></div><div class="plans-grid" id="plans-grid"></div></section>
+<section id="freeclass"><div class="freeclass-grid"><div class="freeclass-copy"><span class="freeclass-pre reveal">Clase de prueba</span><h2 class="freeclass-title reveal">Probá una<br>clase gratis.</h2><p class="freeclass-sub reveal">Sin compromiso. Sin excusas. Vení a conocer Europa y descubrí la disciplina que te va a cambiar la rutina.</p></div><div><form class="form-wrap" id="free-form" onsubmit="return false"><div class="form-row"><span class="form-row-num">01</span><input type="text" id="f-name" placeholder="Tu nombre completo" autocomplete="name" required></div><div class="form-row"><span class="form-row-num">02</span><input type="tel" id="f-tel" placeholder="Tu teléfono (WhatsApp)" autocomplete="tel" required></div><div class="form-row"><span class="form-row-num">03</span><select id="f-disc"><option value="">Disciplina de interés</option><option>Musculación</option><option>Funcional</option><option>Boxeo</option><option>Jiu Jitsu</option><option>Taekwondo</option><option>Spinning</option><option>G.A.P</option><option>Tela Aérea</option></select></div><div class="form-row"><span class="form-row-num">04</span><input type="text" id="f-goal" placeholder="Tu objetivo principal" required></div><button type="button" class="form-submit" id="form-submit">ENVIAR CONSULTA →</button></form></div></div></section>
+<section id="gallery"><div class="gallery-lane"><div class="marquee-track" id="gallery-lane-1"></div></div><div class="gallery-lane"><div class="marquee-track" id="gallery-lane-2"></div></div><div class="gallery-lane"><div class="marquee-track" id="gallery-lane-3"></div></div></section>
+<section id="map-section"><div class="map-grid"><div class="map-embed"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3282.5!2d-58.65!3d-34.55!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sRemedios+de+Escalada+7372!5e0!3m2!1ses!2sar!4v1700000000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ubicación de Gimnasio Europa"></iframe></div><div class="map-info"><div><p class="section-label">Encontranos</p><h2 class="section-title" style="font-size:clamp(28px,4vw,48px)">Estamos en<br>Coronado.</h2></div><div class="map-detail"><span class="map-detail-label">Dirección</span><span class="map-detail-val">Remedios de Escalada 7372<br>Manuel Coronado, Buenos Aires</span></div><div class="map-detail"><span class="map-detail-label">Teléfono</span><span class="map-detail-val">+54 11 3048-6543</span></div><div class="map-detail"><span class="map-detail-label">Instagram</span><a class="map-detail-val" href="https://instagram.com/gimnasioeuropa" target="_blank" rel="noopener" style="color:var(--gold)">@gimnasioeuropa</a></div><a href="#" id="map-wa-btn" class="map-wa">ESCRIBINOS POR WHATSAPP</a></div></div></section>
+<footer id="footer"><div class="footer-marquee"><div class="marquee-track" id="footer-marquee"></div></div><div class="footer-body"><div class="footer-col"><p class="footer-col-title">Europa</p><ul><li>El gimnasio más completo de Coronado.</li><li style="margin-top:8px;color:rgba(168,168,168,.5)">15 años formando disciplina.</li></ul></div><div class="footer-col"><p class="footer-col-title">Cómo llegar</p><ul><li>Remedios de Escalada 7372</li><li>Manuel Coronado</li><li>Buenos Aires, Argentina</li></ul></div><div class="footer-col"><p class="footer-col-title">Contacto</p><ul><li><a href="#" id="footer-wa">WhatsApp</a></li><li><a href="https://instagram.com/gimnasioeuropa" target="_blank" rel="noopener">Instagram</a></li><li><a href="#freeclass">Clase gratuita</a></li><li><a href="#plans">Ver planes</a></li></ul></div><div class="footer-col"><p class="footer-col-title">Disciplinas</p><ul><li>Musculación</li><li>Boxeo · Jiu Jitsu</li><li>Taekwondo · Tela</li><li>Spinning · GAP</li><li>Funcional</li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 EUROPA. Todos los derechos reservados.</span><button class="footer-top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ VOLVER ARRIBA</button></div></footer>
+<div id="float-cta"><a href="#" id="float-wa" class="float-btn float-btn-wa">💬 WhatsApp</a><a href="#freeclass" class="float-btn float-btn-clase">PROBÁ GRATIS</a></div>
+<script>
+(function(){window.EUROPA={marca:{nombre:"EUROPA",eslogan:"Entrená por vos, no por la excusa.",tagline:"15 años formando disciplina en Coronado.",anos:"15",disciplinas:"8"},contacto:{whatsapp:"5491130486543",whatsappDisplay:"+54 11 3048-6543",instagram:"@gimnasioeuropa",instagramUrl:"https://instagram.com/gimnasioeuropa",direccion:"Remedios de Escalada 7372, Manuel Coronado, Buenos Aires"},horarios:[{disciplina:"MUSCULACIÓN",dias:"Lunes a Viernes",hora:"07:00 a 22:00"},{disciplina:"MUSCULACIÓN",dias:"Sábado",hora:"09:00 a 14:00"},{disciplina:"FUNCIONAL",dias:"Lunes, Miérc. y Viern.",hora:"08:00"},{disciplina:"FUNCIONAL",dias:"Martes y Jueves",hora:"08:00"},{disciplina:"FUNCIONAL",dias:"Lunes a Viernes",hora:"19:00"},{disciplina:"FUNCIONAL",dias:"Sábado",hora:"10:00"},{disciplina:"BOXEO",dias:"Lunes, Miérc. y Viern.",hora:"18:00"},{disciplina:"BOXEO",dias:"Martes y Jueves",hora:"18:00"},{disciplina:"BOXEO",dias:"Sábado",hora:"11:00"},{disciplina:"JIU JITSU",dias:"Lunes, Miérc. y Viern.",hora:"19:30"},{disciplina:"JIU JITSU",dias:"Martes y Jueves",hora:"19:30"},{disciplina:"JIU JITSU",dias:"Sábado",hora:"12:00"},{disciplina:"TAEKWONDO",dias:"Lunes, Miérc. y Viern.",hora:"17:00 (Niños)"},{disciplina:"TAEKWONDO",dias:"Lunes, Miérc. y Viern.",hora:"18:30 (Adultos)"},{disciplina:"TAEKWONDO",dias:"Martes y Jueves",hora:"17:00 (Niños)"},{disciplina:"TAEKWONDO",dias:"Martes y Jueves",hora:"18:30 (Adultos)"},{disciplina:"SPINNING",dias:"Lunes a Viernes",hora:"09:00"},{disciplina:"SPINNING",dias:"Lunes a Viernes",hora:"20:00"},{disciplina:"SPINNING",dias:"Sábado",hora:"10:00"},{disciplina:"G.A.P",dias:"Lunes, Miérc. y Viern.",hora:"09:30"},{disciplina:"G.A.P",dias:"Lunes, Miérc. y Viern.",hora:"19:30"},{disciplina:"G.A.P",dias:"Sábado",hora:"11:30"},{disciplina:"TELA AÉREA",dias:"Martes y Jueves",hora:"18:00"},{disciplina:"TELA AÉREA",dias:"Sábado",hora:"14:00"}],planes:[{nombre:"Pase por día",precio:"$25.000",destacado:false},{nombre:"Pase Mensual",precio:"$50.000",destacado:false},{nombre:"Pase Libre + Clases",precio:"$75.000",destacado:true},{nombre:"Premium Elite",precio:"$99.000",destacado:false},{nombre:"Taekwondo Infantil",precio:"$45.000",destacado:false},{nombre:"Taekwondo Adultos",precio:"$55.000",destacado:false},{nombre:"Jiu Jitsu",precio:"$65.000",destacado:false},{nombre:"Jiu Jitsu + Gym",precio:"$85.000",destacado:false},{nombre:"3 Disciplinas",precio:"$89.000",destacado:false}],disciplinas:[{num:"01",nombre:"Musculación",sub:"Construcción de potencia y masa",desc:"Sala completa con máquinas, pesas libres y equipamiento Olympic. Desde principiantes hasta avanzados. Rutinas personalizadas con Personal Trainers certificados.",beneficios:["Ganancia de masa muscular","Fuerza explosiva","Composición corporal","Todos los niveles"]},{num:"02",nombre:"Funcional",sub:"Entrenamiento de alto rendimiento",desc:"Circuitos intensos combinando kettlebells, TRX, cajones pliométricos y movimientos compound. Para mejorar potencia, resistencia y movilidad en menos tiempo.",beneficios:["Quema calórica máxima","Energía sin límites","Adaptado a tu nivel","Comunidad motivante"]},{num:"03",nombre:"Boxeo",sub:"Técnica de combate olímpica",desc:"Ring profesional, bolsas de velocidad y sacos. Entrenadores con experiencia competitiva. Aprende defensa, footwork y pegada técnica desde cero.",beneficios:["Cardio explosivo","Técnica defensiva","Resistencia mental","Confianza en ti mismo"]},{num:"04",nombre:"Jiu Jitsu",sub:"Arte marcial brasileño",desc:"Tatami con mats de competencia. Clases de posiciones, transiciones y sumisiones. Practicamos de forma controlada. Cinturones desde blanco hasta negro.",beneficios:["Control corporal total","Táctica y estrategia","Defensa real","Comunidad hermana"]},{num:"05",nombre:"Taekwondo",sub:"Disciplina olímpica de patadas",desc:"Dojo equipado con tatami y protecciones. Entrenamiento de técnica, concentración y respeto. Clases separadas para niños y adultos. Preparación para competencias.",beneficios:["Patadas de altura","Flexibilidad extrema","Disciplina mental","Cinturones progresivos"]},{num:"06",nombre:"Spinning",sub:"Cardio de ritmo y potencia",desc:"15 bicicletas estáticas en sala iluminada. Clases con música energética y entrenador motivando. Intensidad progresiva. Sin experiencia necesaria.",beneficios:["Quema 600+ calorías","Piernas tonificadas","Bajo impacto","Ambiente de tribu"]},{num:"07",nombre:"G.A.P",sub:"Glúteos, abdomen y piernas",desc:"Clase grupal 45 min. Trabajo localizad con pesas, bandas elásticas y peso corporal. Enfocado en tonificación y definición. Resultados visibles en 30 días.",beneficios:["Glúteos firmes y altos","Abdomen definido","Piernas marcadas","Clases dinámicas"]},{num:"08",nombre:"Tela Aérea",sub:"Acrobacias y expresión corporal",desc:"Entrenamiento vertical en telas profesionales. Desarrollo de fuerza de brazos, hombros y core. Aprende acrobacias seguras. Apto para todos sin experiencia previa.",beneficios:["Fuerza de elite","Flexibilidad extrema","Confianza corporal","Único en zona"]}],instalaciones:["Sala de Musculación","Peso Libre","Zona Cardio","Ring de Boxeo","Tatami Jiu Jitsu","Dojo Taekwondo","Sala Funcional","Clase G.A.P","Sala Spinning","Sala de Tela","Vestuarios","Baños"]};
+var words=['DISCIPLINA','FUERZA','CONSTANCIA','BOXEO','JIU JITSU','SPINNING','FUNCIONAL','15 AÑOS','ENTRENÁ POR VOS'];var doubled=words.concat(words);document.getElementById('marquee-main').innerHTML=doubled.map(w=>'<span>'+w+' ·</span>').join('');
+var blocks=['15 años de trayectoria','Entrenamiento para todos los niveles','Clases grupales con profe','Personal Trainers certificados','Comunidad local de Coronado'];document.getElementById('gym-blocks').innerHTML=blocks.map((b,i)=>'<div class="gym-block reveal"><span class="gym-block-num">0'+(i+1)+'</span><span class="gym-block-text">'+b+'</span></div>').join('');
+var E=window.EUROPA;document.getElementById('disc-track').innerHTML=E.disciplinas.map(d=>'<div class="disc-card" data-idx="'+E.disciplinas.indexOf(d)+'"><span class="disc-card-num">'+d.num+'</span><div style="flex:1;display:flex;align-items:center;justify-content:center;padding:24px 0;background-image:url(\'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80\');background-size:cover;background-position:center;opacity:.3;border-radius:4px;"></div><div class="disc-card-body"><h3 class="disc-card-name">'+d.nombre+'</h3><p class="disc-card-sub">'+d.sub+'</p><p class="disc-card-desc">'+d.desc+'</p><div class="disc-card-benefits">'+d.beneficios.map(b=>'<span class="disc-benefit">'+b+'</span>').join('')+'</div></div></div>').join('');
+var words2=['FUERZA','RESISTENCIA','MOVILIDAD','DISCIPLINA','COMUNIDAD','POTENCIA','TÉCNICA','CONSTANCIA'];var doubled2=words2.concat(words2);document.getElementById('disc-marquee-track').innerHTML=doubled2.map(w=>'<span>'+w+' ·</span>').join('');
+document.getElementById('fac-grid').innerHTML=E.instalaciones.map((item,i)=>'<div class="fac-item reveal"><span class="fac-item-num">'+String(i+1).padStart(2,'0')+'</span><span class="fac-item-name">'+item+'</span></div>').join('');
+document.getElementById('schedule-grid').innerHTML=E.horarios.map(h=>'<div class="schedule-row reveal"><span class="schedule-disc">'+h.disciplina+'</span><span class="schedule-dias">'+h.dias+'</span><span class="schedule-hora">'+h.hora+'</span></div>').join('');
+var wa=E.contacto.whatsapp;document.getElementById('plans-grid').innerHTML=E.planes.map(p=>{var msg=encodeURIComponent('Hola Europa! Quiero info sobre el plan: '+p.nombre+' ('+p.precio+')');var url='https://wa.me/'+wa+'?text='+msg;return'<div class="plan-card reveal'+(p.destacado?' featured':'')+'">'+(p.destacado?'<span class="plan-badge">MÁS POPULAR</span>':'')+' <span class="plan-name">'+p.nombre+'</span><span class="plan-price">'+p.precio+'</span><span class="plan-period">/ mes</span><a href="'+url+'" target="_blank" rel="noopener" class="plan-cta">QUIERO ASOCIARME</a></div>'}).join('');
+var lanes=[['Musculación','Boxeo','Funcional','Cardio','Comunidad','Pesas','Entrenamiento','Fitness'],['Jiu Jitsu','Taekwondo','Tela','GAP','Spinning','Vestuarios','Disciplina','Fuerza'],['Europa','Equipo','Comunidad','Boxeo','Funcional','Musculación','Tela','Cardio']];lanes.forEach((words,i)=>{var el=document.getElementById('gallery-lane-'+(i+1));if(!el)return;var doubled=words.concat(words);el.innerHTML=doubled.map(w=>'<div class="gallery-img" style="background-image:url(\'https://images.unsplash.com/photo-'+(i===0?'1534438327276-14e5300c3a48':'1517836357040-08e573361e18')+'-600x400?w=300&q=80\');"></div>').join('')});
+var items=['EUROPA','EUROPA','EUROPA','EUROPA','EUROPA','EUROPA','EUROPA','EUROPA'];document.getElementById('footer-marquee').innerHTML=items.map(w=>'<span>'+w+' ·</span>').join('');
+document.getElementById('map-wa-btn').href='https://wa.me/'+wa+'?text='+encodeURIComponent('Hola Europa! Quiero más información.');
+document.getElementById('float-wa').href='https://wa.me/'+wa+'?text='+encodeURIComponent('Hola Europa! Quiero más información.');
+document.getElementById('footer-wa').href='https://wa.me/'+wa+'?text='+encodeURIComponent('Hola Europa! Quiero más información.');
+setTimeout(()=>{document.getElementById('splash').classList.add('hidden');document.body.classList.remove('loading')},2400);
+setTimeout(()=>{var c=document.getElementById('hero');if(c)c.classList.add('hero-visible')},2300);
+var nav=document.getElementById('nav');window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60)},{passive:true});
+var els=document.querySelectorAll('.reveal');var obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.05});els.forEach(el=>obs.observe(el));
+var wrap=document.getElementById('disc-scroll');var fill=document.getElementById('disc-fill');var lbl=document.getElementById('disc-label');var btnPrev=document.getElementById('disc-prev');var btnNext=document.getElementById('disc-next');if(wrap){var isDown=false,startX,scrollLeft;wrap.addEventListener('mousedown',e=>{isDown=true;wrap.classList.add('grabbing');startX=e.pageX-wrap.offsetLeft;scrollLeft=wrap.scrollLeft});window.addEventListener('mouseup',()=>{isDown=false;wrap.classList.remove('grabbing')});wrap.addEventListener('mousemove',e=>{if(!isDown)return;e.preventDefault();var x=e.pageX-wrap.offsetLeft;wrap.scrollLeft=scrollLeft-(x-startX)*1.5});function updateDisc(){var max=wrap.scrollWidth-wrap.clientWidth;var pct=max>0?(wrap.scrollLeft/max)*100:0;if(fill)fill.style.width=Math.max(12.5,pct)+'%';var idx=Math.round((wrap.scrollLeft/max)*7)+1;if(lbl)lbl.textContent=String(idx).padStart(2,'0')+' / 08';if(btnPrev)btnPrev.disabled=wrap.scrollLeft<=2;if(btnNext)btnNext.disabled=wrap.scrollLeft>=max-2}wrap.addEventListener('scroll',updateDisc,{passive:true});function scrollByCard(dir){var cardW=wrap.querySelector('.disc-card');var step=cardW?(cardW.offsetWidth+2)*dir:400*dir;wrap.scrollBy({left:step,behavior:'smooth'})}if(btnPrev)btnPrev.addEventListener('click',()=>scrollByCard(-1));if(btnNext)btnNext.addEventListener('click',()=>scrollByCard(1));updateDisc()}
+document.getElementById('form-submit').addEventListener('click',()=>{var name=document.getElementById('f-name').value||'';var tel=document.getElementById('f-tel').value||'';var disc=document.getElementById('f-disc').value||'';var goal=document.getElementById('f-goal').value||'';if(!name||!tel){alert('Completá nombre y teléfono');return}var msg='Hola Europa! 👋\n\nQuiero coordinar una clase gratuita.\n\n👤 Nombre: '+name+'\n📞 Teléfono: '+tel+'\n🥊 Disciplina: '+(disc||'A definir')+'\n🎯 Objetivo: '+(goal||'A definir');var url='https://wa.me/'+wa+'?text='+encodeURIComponent(msg);window.open(url,'_blank')})})();
+</script>
+</body>
+</html>
